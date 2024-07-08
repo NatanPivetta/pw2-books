@@ -57,7 +57,7 @@ public class CatalogWS {
      * @return the updated list of books
      */
     @POST
-    @Path("/markNotAvailable")//
+    @Path("/markNotAvailable")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed("User")
