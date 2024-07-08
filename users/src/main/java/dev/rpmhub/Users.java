@@ -11,6 +11,7 @@ package dev.rpmhub;
 import java.util.Arrays;
 import java.util.HashSet;
 
+import org.eclipse.microprofile.faulttolerance.Retry;
 import org.eclipse.microprofile.jwt.Claims;
 
 import io.smallrye.jwt.build.Jwt;
@@ -46,6 +47,8 @@ public class Users {
     @PermitAll
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
+
+    @Retry(maxRetries = 3, delay = 2000)
     public String generate(final String json) {
 
         JsonObject  jsonObject = new JsonObject(json);

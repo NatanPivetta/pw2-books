@@ -11,6 +11,8 @@ package dev.rpmhub.web;
 import java.util.List;
 import java.util.logging.Logger;
 
+import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
+import org.eclipse.microprofile.faulttolerance.Timeout;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import dev.rpmhub.client.CatalogRC;
@@ -43,6 +45,8 @@ public class ManagementWS {
     @Path("/listBooks")
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed("User")
+    @CircuitBreaker(requestVolumeThreshold = 2)
+    @Timeout(7000)
     public List<Book> listBooksAvailable() {
         LOGGER.info("ManagementWS listBooksAvailable executed");
         return catalog.listBooksAvailable();
